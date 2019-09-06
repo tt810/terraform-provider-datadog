@@ -96,7 +96,6 @@ func (client *Client) doJsonRequestUnredacted(method, api string,
 		return err
 	}
 	defer resp.Body.Close()
-
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
