@@ -21,8 +21,6 @@ resource "datadog_logs_pipeline" "my" {
             source_type = "tag"
             target = "db"
             target_type = "tag"
-            preserve_source = true
-            override_on_conflict = false
         }
     }
     processor {
@@ -45,7 +43,6 @@ resource "datadog_logs_pipeline" "my" {
     }
     processor {
         date_remapper {
-            name = "test date remapper"
             is_enabled = true
             sources = ["date"]
         }
@@ -106,7 +103,6 @@ resource "datadog_logs_pipeline" "my" {
                     name = "test url parser"
                     sources = ["url", "extra"]
                     target = "http_url"
-                    normalize_ending_slashes = true
                 }
             }
         }
@@ -116,7 +112,6 @@ resource "datadog_logs_pipeline" "my" {
             name = "test user agent parser"
             sources = ["user", "agent"]
             target = "http_agent"
-            is_encoded = false
         }
     }
 }
@@ -127,18 +122,9 @@ resource "datadog_logs_pipelineorder" "my_order" {
         "datadog_logs_pipeline.my"
     ]
     pipelines = [
-        "-fhApkC3S0uzZmztKPaGWA",
-        "9XSPBK_3Sc6hkxm8ly58Jg",
-        "umYyVkcCRPaH_7WFPxiNRg",
-        "chc3UbSGTfu5I7eGVAej7w",
-        "TPOHRa2PS2WNbfQOu0Oaxw",
-        "DltQ5IkGQOOXPNc_ut6X2w",
-        "7to4WIFCS8-Zw6chbo_OQg",
-        "qxpd_6v3RrmClUtc7avBPQ",
-        "VjqxryLDRbCORpSp_HfsZQ",
-        "eVWLia7jScyvPTzvUFkDRQ",
-        "${datadog_logs_pipeline.my.id}",
-        "7LfKzdSaTsyS6QuTeTpftA",
-        "_HuntXzdRxeBBQpFaKsA-A"
+        "7mKmvI1DTVuGKPT4hk1aNQ",
+        "x4NYdjW1RjyredO5JsTdZA",
+        "iuhVw_ZvT4m8RAQ73i0Bdg",
+        "${datadog_logs_pipeline.my.id}"
     ]
 }
