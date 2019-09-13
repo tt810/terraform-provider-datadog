@@ -67,11 +67,11 @@ func resourceDatadogLogsPipeline() *schema.Resource {
 }
 
 func resourceDatadogLogsPipelineCreate(d *schema.ResourceData, meta interface{}) error {
-	pipeline, err := buildDatadogPipeline(d)
+	ddPipeline, err := buildDatadogPipeline(d)
 	if err != nil {
 		return err
 	}
-	createdPipeline, err := meta.(*datadog.Client).CreateLogsPipeline(pipeline)
+	createdPipeline, err := meta.(*datadog.Client).CreateLogsPipeline(ddPipeline)
 	if err != nil {
 		return fmt.Errorf("failed to create logs pipeline using Datadog API: %s", err.Error())
 	}
@@ -104,12 +104,12 @@ func resourceDatadogLogsPipelineRead(d *schema.ResourceData, meta interface{}) e
 }
 
 func resourceDatadogLogsPipelineUpdate(d *schema.ResourceData, meta interface{}) error {
-	pipeline, err := buildDatadogPipeline(d)
+	ddPipeline, err := buildDatadogPipeline(d)
 	if err != nil {
 		return err
 	}
 	client := meta.(*datadog.Client)
-	if _, err := client.UpdateLogsPipeline(d.Id(), pipeline); err != nil {
+	if _, err := client.UpdateLogsPipeline(d.Id(), ddPipeline); err != nil {
 		return fmt.Errorf("error updating logs pipeline: (%s)", err.Error())
 	}
 	return resourceDatadogLogsPipelineRead(d, meta)
@@ -257,11 +257,11 @@ func buildTerraformCategories(ddCategories []datadog.Category) []map[string]inte
 func buildTerraformAttributeRemapper(ddAttribute datadog.AttributeRemapper) map[string]interface{} {
 	return map[string]interface{}{
 		"sources":              ddAttribute.Sources,
-		"source_type":          *ddAttribute.SourceType,
-		"target":               *ddAttribute.Target,
-		"target_type":          *ddAttribute.TargetType,
-		"preserve_source":      *ddAttribute.PreserveSource,
-		"override_on_conflict": *ddAttribute.OverrideOnConflict,
+		"source_type":          ddAttribute.GetSourceType(),
+		"target":               ddAttribute.GetTarget(),
+		"target_type":          ddAttribute.GetTargetType(),
+		"preserve_source":      ddAttribute.GetPreserveSource(),
+		"override_on_conflict": ddAttribute.GetOverrideOnConflict(),
 	}
 }
 
@@ -275,7 +275,7 @@ func buildTerraformArithmeticProcessor(ddArithmetic datadog.ArithmeticProcessor)
 
 func buildTerraformFilter(ddFilter *datadog.FilterConfiguration) []map[string]interface{} {
 	tfFilter := map[string]interface{}{
-		"query": *ddFilter.Query,
+		"query": ddFilter.GetQuery(),
 	}
 	return []map[string]interface{}{tfFilter}
 }
