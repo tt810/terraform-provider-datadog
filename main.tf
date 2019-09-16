@@ -1,28 +1,39 @@
 resource "datadog_logs_pipeline" "my" {
-	name = "my pipeline"
-	is_enabled = true
+	name = "updated pipeline"
+	is_enabled = false
 	filter {
 		query = "source:kafka"
 	}
 	processor {
-		arithmetic_processor {
-			name = "updated arithmetic processor"
+		date_remapper {
+			name = "test date remapper"
 			is_enabled = true
-			expression = "(time1 - time2)*1000"
-			target = "my_arithmetic"
-			is_replace_missing = true
+			sources = ["verbose"]
 		}
 	}
 	processor {
-        attribute_remapper {
-            name = "test attribute processor"
-            is_enabled = true
-            sources = ["db.instance"]
-            source_type = "tag"
-            target = "db"
-            target_type = "tag"
-        }
-    }
-
+    		date_remapper {
+    			name = "other date remapper"
+    			is_enabled = true
+    			sources = ["verbose"]
+    		}
+    	}
+	processor {
+		status_remapper {
+			is_enabled = true
+			sources = ["redis.severity"]
+		}
+	}
+	processor {
+		attribute_remapper {
+			name = "Simple attribute remapper"
+			is_enabled = true
+			sources = ["db.instance"]
+			source_type = "tag"
+		  	target = "db"
+			target_type = "tag"
+			preserve_source = true
+			override_on_conflict = false
+		}
+	}
 }
-
