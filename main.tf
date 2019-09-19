@@ -37,3 +37,14 @@ resource "datadog_logs_pipeline" "my" {
 		}
 	}
 }
+
+resource "datadog_logs_pipelineorder" "pipelines" {
+	name = "pipelines"
+	pipelines = [
+		"TOYNsNfjTD6zTXVg8_ej1g",
+        "VxXfWxegScyjG8mMJwnFIA",
+        "GGVTp-5PT_O9Xhmsxnsu_w",
+        "VgZXJneKR2qh2WcfAQi6fA",
+        "hHNF6-ykTFiW2KrlO4z6kw"
+	]
+}
