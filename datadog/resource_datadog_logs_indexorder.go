@@ -28,12 +28,10 @@ func resourceDatadogLogsIndexOrder() *schema.Resource {
 }
 
 func resourceDatadogLogsIndexOrderCreate(d *schema.ResourceData, meta interface{}) error {
-	fmt.Println("creating...")
 	return resourceDatadogLogsIndexOrderUpdate(d, meta)
 }
 
 func resourceDatadogLogsIndexOrderUpdate(d *schema.ResourceData, meta interface{}) error {
-	fmt.Println("updating...")
 	var ddIndexList datadog.LogsIndexList
 	tfList := d.Get("indexes").([]interface{})
 	ddList := make([]string, len(tfList))

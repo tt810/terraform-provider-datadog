@@ -57,13 +57,11 @@ func resourceDatadogLogsIndex() *schema.Resource {
 }
 
 func resourceDatadogLogsIndexCreate(d *schema.ResourceData, meta interface{}) error {
-	fmt.Println("creating...")
 	return resourceDatadogLogsIndexUpdate(d, meta)
 }
 
 func resourceDatadogLogsIndexRead(d *schema.ResourceData, meta interface{}) error {
-	fmt.Println("reading...")
-	ddIndex, err := meta.(*datadog.Client).GetLogsIndex(d.Get("name").(string))
+	ddIndex, err := meta.(*datadog.Client).GetLogsIndex(d.Id())
 	if err != nil {
 		return err
 	}
@@ -80,7 +78,6 @@ func resourceDatadogLogsIndexRead(d *schema.ResourceData, meta interface{}) erro
 }
 
 func resourceDatadogLogsIndexUpdate(d *schema.ResourceData, meta interface{}) error {
-	fmt.Println("updating...")
 	ddIndex, err := buildDatadogIndex(d)
 	if err != nil {
 		return err
@@ -95,14 +92,12 @@ func resourceDatadogLogsIndexUpdate(d *schema.ResourceData, meta interface{}) er
 }
 
 func resourceDatadogLogsIndexDelete(d *schema.ResourceData, meta interface{}) error {
-	fmt.Println("deleting...")
 	return nil
 }
 
 func resourceDatadogLogsIndexExists(d *schema.ResourceData, meta interface{}) (bool, error) {
-	fmt.Println("existing...")
 	client := meta.(*datadog.Client)
-	if _, err := client.GetLogsIndex(d.Get("name").(string)); err != nil {
+	if _, err := client.GetLogsIndex(d.Id()); err != nil {
 		if strings.Contains(err.Error(), "404 Not Found") {
 			return false, nil
 		}
