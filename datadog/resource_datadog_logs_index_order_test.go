@@ -41,7 +41,7 @@ resource "datadog_logs_index" "my_index_test" {
 	}
 }
 
-resource "datadog_logs_indexorder" "my_index_list" {
+resource "datadog_logs_index_order" "my_index_list" {
 	name = "main list"
 	depends_on = [
 		"datadog_logs_index.my_index_test"
@@ -71,11 +71,11 @@ func TestAccDatadogLogsIndexOrder_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"datadog_logs_index.my_index_test", "exclusion_filter.3.filter.0.sample_rate", "0"),
 					resource.TestCheckResourceAttr(
-						"datadog_logs_indexorder.my_index_list", "name", "main list"),
+						"datadog_logs_index_order.my_index_list", "name", "main list"),
 					resource.TestCheckResourceAttr(
-						"datadog_logs_indexorder.my_index_list", "indexes.#", "1"),
+						"datadog_logs_index_order.my_index_list", "indexes.#", "1"),
 					resource.TestCheckResourceAttr(
-						"datadog_logs_indexorder.my_index_list", "indexes.0", "main"),
+						"datadog_logs_index_order.my_index_list", "indexes.0", "main"),
 				),
 			},
 		},

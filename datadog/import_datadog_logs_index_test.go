@@ -43,7 +43,7 @@ resource "datadog_logs_index" "import_index_test" {
 `
 
 const indexOrderForImportConfig = `
-resource "datadog_logs_indexorder" "import_index_list" {
+resource "datadog_logs_index_order" "import_index_list" {
 	name = "main list"
 	indexes = [
 		"main"
@@ -82,11 +82,11 @@ func TestAccLogsIndexOrder_importBasic(t *testing.T) {
 				Config: indexOrderForImportConfig,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"datadog_logs_indexorder.import_index_list", "name", "main list"),
+						"datadog_logs_index_order.import_index_list", "name", "main list"),
 				),
 			},
 			{
-				ResourceName: "datadog_logs_indexorder.import_index_list",
+				ResourceName: "datadog_logs_index_order.import_index_list",
 				ImportState:  true,
 			},
 		},

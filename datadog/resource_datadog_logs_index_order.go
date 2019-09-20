@@ -66,8 +66,5 @@ func resourceDatadogLogsIndexOrderDelete(d *schema.ResourceData, meta interface{
 }
 
 func resourceDatadogLogsIndexOrderExists(d *schema.ResourceData, meta interface{}) (bool, error) {
-	if ddIndexList, err := meta.(*datadog.Client).GetLogsIndexList(); err == nil && len(ddIndexList.IndexNames) > 0 {
-		return true, nil
-	}
-	return false, nil
+	return true, nil
 }

@@ -10,7 +10,8 @@ description: |-
 
 Provides a Datadog [Logs Index API](https://docs.datadoghq.com/api/?lang=python#logs-indexes) resource. This can be used to create and manage Datadog logs indexes.
 
-## Example Usage: Datadog logs index
+## Example Usage:
+Create a Datadog logs index resource.
 
 ```hcl
 # Update a Datadog logs index
@@ -37,23 +38,11 @@ resource "datadog_logs_index" "sample_index" {
     }
 }
 ```
-## Example Usage: Datadog logs pipeline order
-
-```hcl
-resource "datadog_logs_indexorder" "sample_index_order" {
-    name = "sample_index_order"
-    depends_on = [
-        "datadog_logs_index.sample_index"
-    ]
-    indexes = [
-        "${datadog_logs_index.sample_index.id}"
-    ]
-}
-```
 
 ## Argument Reference
 
-The following arguments are supported in resource `datadog_logs_index`:
+The following arguments are supported:
+
 * `name` - (Required) The name of the index.
 * `filter` - (Required) Logs filter.
   * `query` - (Required) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
@@ -64,16 +53,11 @@ The following arguments are supported in resource `datadog_logs_index`:
     * `query` - (Required) Only logs matching the filter criteria and the query of the parent index will be considered for this exclusion filter.
     * `sample_rate` - (Optional, default = 0.0) the fraction of logs excluded by the exclusion filter, when active.
 
-The following arguments are supported in resource `datadog_logs_indexorder`:
-* `name` - (Required) The unique name of the index order. 
-* `indexes` - (Required) The index resource list. Logs are tested against the query filter of each index one by one, following the order of the list.
-
 ## Import
 
-For the existing indexes, do `terraform import <resource.name> <indexName>` to import them to terraform.  
+The current datadog terraform provider version does not support the creation and deletion of index. 
+To manage the existing indexes, do `terraform import <datadog_logs_index.name> <indexName>` to import them to terraform.
 
 ## Important Notes
 
-Each `datadog_logs_order` resource defines a complete index. The order of index are maintained in resource `datadog_logs_indexorder`.
-There should be just one `datadog_logs_indexorder` resource. The creation and deletion of logs index and index order are currently
-not supported through terraform provider.
+The order of indexes is maintained in the separated resource [datadog_logs_index_order](logs_index_order.html#datadog_logs_index_order).  
