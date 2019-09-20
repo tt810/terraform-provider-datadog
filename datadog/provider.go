@@ -48,6 +48,8 @@ func Provider() terraform.ResourceProvider {
 			"datadog_user":                                 resourceDatadogUser(),
 			"datadog_logs_pipeline":                        resourceDatadogLogsPipeline(),
 			"datadog_logs_pipeline_order":                  resourceDatadogLogsPipelineOrder(),
+			"datadog_logs_index":                           resourceDatadogLogsIndex(),
+			"datadog_logs_index_order":                     resourceDatadogLogsIndexOrder(),
 		},
 
 		ConfigureFunc: providerConfigure,
