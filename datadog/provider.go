@@ -46,7 +46,7 @@ func Provider() terraform.ResourceProvider {
 			"datadog_integration_pagerduty_service_object": resourceDatadogIntegrationPagerdutySO(),
 			"datadog_service_level_objective":              resourceDatadogServiceLevelObjective(),
 			"datadog_logs_pipeline":                        resourceDatadogLogsPipeline(),
-			"datadog_logs_pipelineorder":                   resourceDatadogLogsPipelineOrder(),
+			"datadog_logs_pipeline_order":                  resourceDatadogLogsPipelineOrder(),
 		},
 
 		ConfigureFunc: providerConfigure,
